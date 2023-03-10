@@ -19,9 +19,9 @@ jobs:
         
       - name: Set Up ssh key
         run: |
-          mkdir ~/.ssh
-          cd ~/.ssh
-          echo "${{ secrets.MINIKUBE_SSH_KEY }}" > minikube
+          echo "${{ secrets.MINIKUBE_SSH_KEY }}" > ~/.ssh/minikube
+          chmod 600 ~/.ssh/minikube
+          echo "${{ secrets.MINIKUBE_SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
           
       - name: Set up minikube connection
         run: |
