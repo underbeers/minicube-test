@@ -50,4 +50,5 @@ jobs:
         
       - name: Check nodes
         run: |
+          cd ~
           kubectl get nodes
