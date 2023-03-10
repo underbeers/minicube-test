@@ -21,7 +21,7 @@ jobs:
         run: |
           mkdir ~/.ssh
           cd ~/.ssh
-          echo ${{ secrets.MINIKUBE_SSH_KEY }} > minikube
+          echo "${{ secrets.MINIKUBE_SSH_KEY }}" > minikube
           
       - name: Set up minikube connection
         run: |
