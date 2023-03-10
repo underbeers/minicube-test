@@ -34,6 +34,7 @@ jobs:
           scp -i ~/.ssh/minikube admin@k8s.raezhov.fun:/home/admin/.minikube/profiles/minikube/client.crt .
           scp -i ~/.ssh/minikube admin@k8s.raezhov.fun:/home/admin/.minikube/profiles/minikube/client.key .
           ls -a
+          
       - name: Download kubectl
         run: |
           mkdir ~/kubectl
@@ -42,6 +43,9 @@ jobs:
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
           kubectl version --client
+      - name: Create tunel
+        run: ssh -N -p 22 admin@k8s.raezhov.fun -i ~/.ssh/minikube -L 18443:192.168.49.2:8443 &
+        
       - name: Check nodes
         run: |
           kubectl get nodes
