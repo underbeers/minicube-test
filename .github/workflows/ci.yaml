@@ -27,9 +27,9 @@ jobs:
         run: |
           mkdir ~/k8s.raezhov.fun
           cd ~/k8s.raezhov.fun
-          scp admin@k8s.raezhov.fun:/home/admin/.minikube/ca.crt .
-          scp admin@k8s.raezhov.fun:/home/admin/.minikube/profiles/minikube/client.crt .
-          scp admin@k8s.raezhov.fun:/home/admin/.minikube/profiles/minikube/client.key .
+          scp -i ~/.ssh/minikube admin@k8s.raezhov.fun:/home/admin/.minikube/ca.crt .
+          scp -i ~/.ssh/minikube admin@k8s.raezhov.fun:/home/admin/.minikube/profiles/minikube/client.crt .
+          scp -i ~/.ssh/minikube admin@k8s.raezhov.fun:/home/admin/.minikube/profiles/minikube/client.key .
           ls -a
       - name: Download kubectl
         run: |
