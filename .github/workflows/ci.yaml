@@ -1,4 +1,4 @@
-name: Hello ci
+name: Connect to minikube CI
 on:
   push:
     branches: 
@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - run: echo "Hello, CI"
+      
   setup_minikube:
     name: Set Up Minikube
     runs-on: ubuntu-22.04
@@ -35,7 +36,6 @@ jobs:
           scp -i ~/.ssh/minikube admin@k8s.raezhov.fun:/home/admin/.minikube/ca.crt .
           scp -i ~/.ssh/minikube admin@k8s.raezhov.fun:/home/admin/.minikube/profiles/minikube/client.crt .
           scp -i ~/.ssh/minikube admin@k8s.raezhov.fun:/home/admin/.minikube/profiles/minikube/client.key .
-          ls -a
           
       - name: Download kubectl
         run: |
@@ -50,5 +50,4 @@ jobs:
         
       - name: Check nodes
         run: |
-          cd ~
           kubectl get nodes
