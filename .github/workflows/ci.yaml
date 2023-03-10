@@ -1,0 +1,10 @@
+name: Hello ci
+on:
+  push:
+    branch: [main]
+jobs:
+  greeting:
+    name: Greeting
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo "Hello, CI"
