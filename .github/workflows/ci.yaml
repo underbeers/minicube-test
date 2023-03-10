@@ -1,10 +1,47 @@
 name: Hello ci
 on:
   push:
-    branch: [main]
+    branches: 
+      - main
+      
 jobs:
   greeting:
     name: Greeting
     runs-on: ubuntu-22.04
     steps:
       - run: echo "Hello, CI"
+  setup_minikube:
+    name: Set Up Minikube
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Set Up ssh key
+        run: |
+          mkdir ~/.ssh
+          cd ~/.ssh
+          echo ${{ MINIKUBE_SSH_KEY }} > minikube
+          
+      - name: Set up minikube connection
+        run: |
+          ls -a
+          cp ./.kube ~/
+          ls -a
+          mkdir ~/k8s.raezhov.fun
+          cd ~/k8s.raezhov.fun
+          scp admin@k8s.raezhov.fun:/home/admin/.minikube/ca.crt .
+          scp admin@k8s.raezhov.fun:/home/admin/.minikube/profiles/minikube/client.crt .
+          scp admin@k8s.raezhov.fun:/home/admin/.minikube/profiles/minikube/client.key .
+          ls -a
+      - name: Download kubectl
+        run: |
+          mkdir ~/kubectl
+          cd ~/kubectl
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
+          kubectl version --client
+      - name: Check nodes
+        run: |
+          kubectl get nodes
