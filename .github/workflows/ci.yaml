@@ -19,8 +19,10 @@ jobs:
         
       - name: Set Up ssh key
         run: |
+          touch ~/.ssh/minikube
           echo "${{ secrets.MINIKUBE_SSH_KEY }}" > ~/.ssh/minikube
           chmod 600 ~/.ssh/minikube
+          touch ~/.ssh/known_hosts
           echo "${{ secrets.MINIKUBE_SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
           
       - name: Set up minikube connection
