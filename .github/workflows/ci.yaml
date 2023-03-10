@@ -25,9 +25,6 @@ jobs:
           
       - name: Set up minikube connection
         run: |
-          ls -a
-          cp ./.kube/config ~/.kube/config
-          ls -a
           mkdir ~/k8s.raezhov.fun
           cd ~/k8s.raezhov.fun
           scp admin@k8s.raezhov.fun:/home/admin/.minikube/ca.crt .
